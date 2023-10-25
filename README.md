@@ -1,2 +1,5 @@
-# camera-pose-from-planes-solution
-Display camera poses with respect to planar object 
+# Camera pose from planes
+
+
+
+- [Assignment description](https://cs.fit.edu/~eribeiro/teaching/cse5683/assignments/posefromplanes/poseFromPlanesAssignment.html)
