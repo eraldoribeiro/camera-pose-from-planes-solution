@@ -15,8 +15,8 @@ one.
 ## The idea
 
 When a camera photographs a **plane**, the mapping between the plane and the
-image is a homography — a single $3\times3$ matrix. Placing the world frame on
-the plane makes every object point have $w=0$, which kills the third column of
+image is a homography in the form of a single $3\times3$ matrix. Placing the world frame on
+the plane makes every object point have $w=0$, which cancels the third column of
 the rotation and collapses the $3\times4$ projection matrix into
 
 $$\Phi \;\simeq\; \Lambda\,[\,\mathbf{r}_1 \;\; \mathbf{r}_2 \;\; \boldsymbol{\tau}\,]$$
@@ -25,13 +25,13 @@ where $\Lambda$ holds the intrinsics and $\mathbf{r}_1,\mathbf{r}_2$ are the fir
 
 This is also a recipe for **pose**: if the camera is calibrated,
 $\Lambda^{-1}\Phi$ leaves the pose, scaled by an unknown factor. Because the
-columns of a rotation matrix are unit vectors, that scale can be read off
+columns of a rotation matrix are unit vectors, that scale can be estimated 
 directly, and the rest of the pose follows.
 
 The notebook derives the camera-pose estimation in five steps: remove the intrinsics, recover the
 scale $\lambda$, fix its sign, build the rotation, and project the result onto $\mathrm{SO}(3)$.
 
-## What the notebook does
+## Notebook steps
 
 1. **Calibrate the camera** from 41 chessboard images, giving $\Lambda$ and the
    lens distortion.
@@ -44,9 +44,8 @@ scale $\lambda$, fix its sign, build the rotation, and project the result onto $
 
 ## Running it
 
-**On Colab** — click the badge above. The first cell installs `pytransform3d`
-and `cvxopt`, which Colab does not ship, and clones this repository so the
-image files are available.
+**On Colab** — click the badge above or use Chrome's Colab extension). The first cell installs `pytransform3d`
+and `cvxopt`, and clones this repository so the image files are available.
 
 **Locally** — clone the repository and launch the notebook from inside it, so
 the relative paths to the images resolve:
@@ -70,7 +69,7 @@ Requires `numpy`, `opencv-python`, `matplotlib`, `scipy`, `cvxopt` and
 | `dory.jpg` | the reference pattern, 512×512 |
 | `plot_image_grid.py` | helper for displaying images in a grid |
 
-## Things worth noticing
+## Notes
 
 - **The intrinsics are resolution-dependent.** The calibration images are
   640×480 and the object images are 800×600, so $\Lambda$ has to be rescaled
